@@ -1,0 +1,8 @@
+[package]
+name = "scottricity/placementservice-knit"
+version = "0.1.0"
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+description = "PlacementService but for wally and knitified, meaning it uses a Signal object instead of a RemoteFunction."
+
+[dependencies]
