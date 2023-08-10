@@ -10,15 +10,15 @@ local Promise = require(Packages.Promise)
 
 local service = Knit.CreateService({
 	Name = "PlayerService";
-    Joined = Signal.new();
     Spawned = Signal.new();
-    Left = Signal.new();
     Client = {
         Loaded = Knit.CreateSignal();
+
     }
 })
 
 local TycoonService
+local DataService
 
 local function FreezePlayer(player: Player)
     local char = player.Character
@@ -34,10 +34,16 @@ local function ThawPlayer(player: Player)
     char.HumanoidRootPart.Anchored = false
 end
 
+function service.Client:LoadSlot(player: Player, slotId: number)
+    
+end
+
 function service:KnitStart()
+    DataService = Knit.GetService("DataService")
     TycoonService = Knit.GetService("TycoonService")
 	
     Players.PlayerAdded:Connect(function(player)
+        local playerProfile = DataService:LoadProfileAsync(player.UserId, "S")
         local ps, plot = Promise.retry(TycoonService.AssignPlotAsync, 3, TycoonService, player):await()
         player.CharacterAdded:Connect(function(character)
             WaitFor.Child(character, "HumanoidRootPart"):await()
@@ -47,7 +53,10 @@ function service:KnitStart()
     end)
 
     Players.PlayerRemoving:Connect(function(player)
-        
+        local profile = DataService:GetProfile(player)
+        if profile ~= nil then
+            profile.Profile:Release()
+        end
     end)
 end
 

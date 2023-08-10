@@ -9,6 +9,7 @@ class.__index = class
 type Plot = {
     _plot: Model;
     _player: Player;
+    _misc: {}
 }
 
 function class:Ping()

@@ -3,6 +3,12 @@ return {
         Items = {};
         Souls = {};
     };
+    Layouts = {
+        [1] = {};
+        [2] = {};
+        [3] = {};
+    };
+    ActiveLayout = nil;
     Currency = {
         Cash = 100;
     };
