@@ -7,7 +7,7 @@ local Items = Assets:WaitForChild("Items")
 
 local Knit = require(Packages.Knit)
 local Signal = require(Packages.Signal)
-local PlacementService = require(Packages.PlacementService)
+--local PlacementService = require(Packages.PlacementService)
 
 local controller = Knit.CreateController {
     Name = "BuildingController";
@@ -15,7 +15,8 @@ local controller = Knit.CreateController {
 
 local TycoonService
 local BuildingService
-local PlacementInfo = PlacementService.new(
+--[[
+    local PlacementInfo = PlacementService.new(
     2,
     Items,
     Enum.KeyCode.R,
@@ -27,17 +28,12 @@ local PlacementInfo = PlacementService.new(
     Enum.KeyCode.DPadUp,
     Enum.KeyCode.DPadDown
 )
+]]
 
 function controller:KnitStart()
     TycoonService = Knit.GetService("TycoonService")
     BuildingService = Knit.GetService("BuildingService")
-    local p = TycoonService:GetPlot()
-    task.wait(5)
 
-    PlacementInfo:activate("Model", p._plot.Items, p._plot.Grid, false, false, false)
-    task.wait(4)
-    print("a")
-    PlacementInfo:requestPlacement(BuildingService.RequestPlacement)
 end
 
 return controller

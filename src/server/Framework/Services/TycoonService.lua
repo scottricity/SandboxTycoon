@@ -44,7 +44,7 @@ local function AssignPlotAsync(player: Player)
             }
             setmetatable(plotProfile, PlotClass)
             Plots[player] = plotProfile
-            return resolve()
+            return resolve(Plots[player])
         end
     else
         return reject("Player owns a plot already!")

@@ -15,6 +15,7 @@ local PlayerGui
 local PlayerService
 
 function controller:KnitStart()
+    print("test")
     PlayerService = Knit.GetService("PlayerService")
     local _trove = Trove.new()
     local Client = Knit.Player
@@ -26,13 +27,18 @@ function controller:KnitStart()
         if (MenuUI) then
             local Frame = MenuUI:WaitForChild("Frame")
             local slot1 = Frame:WaitForChild("slot1")
-            local slot2 = Frame:WaitForChild("slot2")
 
             _trove:Connect(slot1.Activated, function()
-                PlayerService:LoadSlot(1)
+                local response = PlayerService:RequestSlot(1)
+                if (response == true) then
+                    Frame.Visible = false
+                    Frame.Active = false
+                    PlayerService:LoadSlot()
+                end
             end)
         end
     end
+    
 end
 
 return controller
